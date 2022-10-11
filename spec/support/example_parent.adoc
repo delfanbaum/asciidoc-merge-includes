@@ -4,8 +4,6 @@ This is an introduction. The following includes some things we want to include.
 
 include::example_child.adoc
 
-== Anti-pattern
-
-The next one, however, we don't want to include.
+include::example_child_2.asciidoc
 
 include::example_data.csv

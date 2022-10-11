@@ -1,5 +1,4 @@
 require 'merger'
-require 'tempfile'
 
 describe AdocFile do
   parent_file = 'spec/support/example_parent.adoc'
@@ -23,6 +22,5 @@ describe AdocFile do
       parent = AdocFile.new(edgecases_file)
       expect(parent.gather_includes).to eql([['some-file.adoc', -44]])
     end
-
   end
 end

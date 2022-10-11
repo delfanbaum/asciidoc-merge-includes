@@ -13,7 +13,11 @@ class AdocFile
   def gather_includes
     return unless includes?
 
-    incl_re = /include::(.*?)\.(adoc|asciidoc)/
-    @includes = @text.scan(incl_re).map { |stub, ext| "#{stub}.#{ext}" }
+    incl_re = /include::(.*?)\.(adoc|asciidoc)\[(.*?)\]/
+    @includes = @text.scan(incl_re).map do |stub, ext, offset|
+      ["#{stub}.#{ext}", 0] unless offset.match(/leveloffset=/)
+
+      ["#{stub}.#{ext}", offset.split('=')[-1].to_i]
+    end
   end
 end

@@ -2,8 +2,8 @@
 
 This is an introduction. The following includes some things we want to include.
 
-include::example_child.adoc
+include::example_child.adoc[]
 
-include::example_child_2.asciidoc
+include::example_child_2.asciidoc[leveloffset=+1]
 
 include::example_data.csv

@@ -1,0 +1,3 @@
+= Edge Cases
+
+include::some-file.adoc[leveloffset=-44]

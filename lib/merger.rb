@@ -14,7 +14,6 @@ class AdocFile
     incl_re = /^include::(.*?)\.(adoc|asciidoc)\[(.*?)\]/
     incl_list = @text.to_enum(:scan, incl_re).map { Regexp.last_match }
     @includes = process_incl_list(incl_list)
-
   end
 
   def merge_includes

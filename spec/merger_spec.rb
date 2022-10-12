@@ -1,4 +1,3 @@
-require 'spec_helper'
 require 'merger'
 
 parent_file = 'spec/support/example_parent.adoc'
@@ -27,7 +26,8 @@ describe AdocFile do
 
     it 'handles negative offsets' do
       edgecase = AdocFile.new(edgecases_file)
-      expect(edgecase.gather_includes).to eql([['include::example_child.adoc[leveloffset=-44]', 'example_child.adoc', -44]])
+      expect(edgecase.gather_includes).to eql([['include::example_child.adoc[leveloffset=-44]',
+                                                'example_child.adoc', -44]])
     end
   end
 end

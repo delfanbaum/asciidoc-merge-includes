@@ -41,14 +41,12 @@ describe 'Merge functionality' do
     it 'pulls in included content' do
       parent = AdocFile.new(parent_file)
       parent.merge_includes
-      puts parent.text
       expect(parent.text).to include("I'm A Child File")
     end
 
     it 'handles negative offsets' do
       edgecase = AdocFile.new(edgecases_file)
       edgecase.merge_includes
-      puts edgecase.text
       expect(edgecase.text).to include(':leveloffset: -44')
     end
   end

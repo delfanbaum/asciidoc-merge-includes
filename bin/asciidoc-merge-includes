@@ -1,0 +1,12 @@
+#!/usr/bin/env ruby
+
+require 'merger'
+require 'cli'
+
+interface = Cli.new
+options = interface.parse(ARGV)
+
+# show help if no args given
+interface.parse %w[--help] if ARGV.empty?
+
+puts options unless ARGV.empty?

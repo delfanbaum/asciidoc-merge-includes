@@ -5,8 +5,23 @@ require 'cli'
 
 interface = Cli.new
 options = interface.parse(ARGV)
+logger = Logger.new(options)
 
 # show help if no args given
 interface.parse %w[--help] if ARGV.empty?
 
-puts options unless ARGV.empty?
+# otherwise, merge the doc(s)!
+files = ARGV.select { |arg| %w[adoc asciidoc].include?(arg.downcase.split('.')[-1]) }
+
+files.map do |file|
+  logger.put "Checking for include directives in #{file}..."
+  parent = AdocFile.new(file)
+  if parent.includes
+    logger.put '  Merging included asciidoc files...'
+    parent.merge_includes
+  else
+    logger.put "  No include directives found in #{file}"
+  end
+end
+
+logger.put "\nFinished!"

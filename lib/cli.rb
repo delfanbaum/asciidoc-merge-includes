@@ -35,7 +35,7 @@ class Cli
     end
 
     def verbose_option(parser)
-      parser.on('-v', '--verbose', 'Show verbose processing information') do
+      parser.on('-v', '--verbose', 'Output processing information') do
         self.verbose = true
       end
     end
@@ -51,4 +51,17 @@ class Cli
   end
 
   attr_reader :parser, :options
+end
+
+# simple on/off for verbosity
+class Logger
+  attr_accessor :verbose
+
+  def initialize(options)
+    self.verbose = options.verbose
+  end
+
+  def put(message)
+    puts message if verbose == true
+  end
 end

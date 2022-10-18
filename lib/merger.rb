@@ -1,8 +1,9 @@
 # Class for files who are going to have their includes merged in
 class AdocFile
-  attr_accessor :text, :includes, :parent_dir
+  attr_accessor :text, :includes, :parent_dir, :filename, :file, :out_fn
 
   def initialize(filename)
+    @file = filename
     @parent_dir = File.dirname(filename)
     @text = File.open(filename).read
     gather_includes
@@ -30,6 +31,18 @@ class AdocFile
 
       @text.sub!(line, "#{offset_text[0]}\n\n#{included_file.text}\n\n#{offset_text[1]}")
     end
+  end
+
+  def save_back_to_file
+    @out_fn = @file
+    File.open(@out_fn, 'w') { |f| f.write(@text) }
+  end
+
+  def save_to_new_file
+    fn_parts = @file.split('.')
+    extension = fn_parts.pop
+    @out_fn = "#{fn_parts.join('.')}_.#{extension}"
+    File.open(@out_fn, 'w') { |f| f.write(@text) }
   end
 
   private

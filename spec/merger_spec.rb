@@ -51,3 +51,34 @@ describe 'Merge functionality' do
     end
   end
 end
+
+describe 'Save functionality' do
+  before(:each) do
+    File.open('tmp.adoc', 'w') { |f| f.write('include::tmp2.adoc[]') }
+    File.open('tmp2.adoc', 'w') { |f| f.write('Hello, world') }
+    @parent = AdocFile.new('tmp.adoc')
+  end
+
+  describe '.save_back_to_file' do
+    it 'saves back to to the original file' do
+      @parent.merge_includes
+      @parent.save_back_to_file
+      result = File.open(@parent.out_fn, 'r', &:read)
+      expect(result).to include('Hello, world')
+    end
+  end
+
+  describe '.save_to_new_file' do
+    it 'saves to a new file_ to preserve original' do
+      @parent.merge_includes
+      @parent.save_to_new_file
+      result = File.open(@parent.out_fn, 'r', &:read)
+      expect(result).to include('Hello, world')
+    end
+  end
+
+  after(:each) do
+    files = ['tmp.adoc', 'tmp_.adoc', 'tmp2.adoc']
+    files.each { |f| File.delete(f) if File.exist?(f) }
+  end
+end
